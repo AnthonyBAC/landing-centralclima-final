@@ -1,0 +1,146 @@
+.heroWrapper {
+  background: #003162;
+}
+
+.hero {
+  padding: 96px var(--container-pad) 48px;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.title {
+  font-size: 64px;
+  line-height: 1.04;
+  margin-top: 28px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  text-wrap: balance;
+  color: #FFFFFF;
+}
+
+.subtitle {
+  font-size: 18px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 640px;
+  margin: 24px auto 0;
+  font-weight: 300;
+}
+
+.ctaRow {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--cta);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.75);
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.btnGhost:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+/* Foto/video — centrado con padding en todos los lados */
+.mediaWrapper {
+  padding: 0 var(--container-pad) var(--container-pad);
+}
+
+.photoPlaceholder {
+  height: 480px;
+  background: repeating-linear-gradient(
+    135deg,
+    #002050 0,
+    #002050 14px,
+    #001840 14px,
+    #001840 28px
+  );
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photoLabel {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 64px 24px 32px;
+  }
+
+  .title {
+    font-size: 40px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .mediaWrapper {
+    padding: 0 24px 40px;
+  }
+
+  .photoPlaceholder {
+    height: 280px;
+  }
+}

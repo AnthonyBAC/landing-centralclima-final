@@ -1,0 +1,145 @@
+.section {
+  padding: 96px 0;
+  border-top: 1px solid var(--line-soft);
+  background: var(--bg);
+}
+
+.inner {
+  padding: 0 var(--container-pad);
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 64px;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title {
+  font-size: 36px;
+  line-height: 1.1;
+  max-width: 360px;
+  margin-top: 12px;
+}
+
+.lede {
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 340px;
+  font-weight: 300;
+  margin-top: 18px;
+}
+
+.viewAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin-top: 28px;
+  width: fit-content;
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.viewAll:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--line);
+}
+
+.card {
+  padding: 28px 24px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  background: var(--paper);
+  transition: background var(--transition-base);
+}
+
+.card:hover {
+  background: var(--bg);
+}
+
+.card:nth-child(2n) {
+  border-right: none;
+}
+
+.card:nth-child(n+3) {
+  border-bottom: none;
+}
+
+.cardNum {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.14em;
+}
+
+.cardTitle {
+  font-size: 16px;
+  margin-top: 12px;
+}
+
+.arrow {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  align-self: flex-end;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: 1fr;
+    padding: 0 24px;
+    gap: 40px;
+  }
+
+  .title {
+    max-width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card:nth-child(n+3) {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .card:last-child {
+    border-bottom: none;
+  }
+}

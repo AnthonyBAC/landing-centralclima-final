@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Quote {
+  id              String   @id @default(cuid())
+  nombre          String
+  empresa         String
+  email           String
+  telefono        String
+  tipoServicio    String
+  descripcion     String
+  cantidadEquipos Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("quotes")
+}
