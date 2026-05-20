@@ -2,6 +2,7 @@
 
 import { m } from 'framer-motion';
 import type { CoverageRegion } from '@/types';
+import { CoverageMap } from './CoverageMap';
 import styles from './Coverage.module.css';
 
 const comunas: CoverageRegion[] = [
@@ -24,13 +25,13 @@ export function Coverage() {
     <section className={styles.section}>
       <div className={styles.inner}>
         <m.div
-          className={styles.mapPlaceholder}
+          className={styles.mapWrap}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.6 }}
         >
-          <span className={styles.mapLabel}>Mapa · Santiago / RM</span>
+          <CoverageMap />
         </m.div>
 
         <m.div

@@ -1,7 +1,9 @@
 'use client';
 
+import type { ElementType } from 'react';
 import Link from 'next/link';
 import { m } from 'framer-motion';
+import { Factory, Store, Building2 } from 'lucide-react';
 import type { Sector } from '@/types';
 import styles from './Sectors.module.css';
 
@@ -15,6 +17,7 @@ const sectores: Sector[] = [
     descripcion:
       'Plantas productivas, bodegas, frigoríficos. Diseño térmico, mantención predictiva y respuesta de emergencia 24/7.',
     items: [],
+    icon: Factory,
   },
   {
     id: 'retail',
@@ -23,6 +26,7 @@ const sectores: Sector[] = [
     descripcion:
       'Locales, sucursales, malls. Planes multi-sitio con SLA y reporte centralizado para cadenas de cualquier tamaño.',
     items: [],
+    icon: Store,
   },
   {
     id: 'corporativo',
@@ -31,6 +35,7 @@ const sectores: Sector[] = [
     descripcion:
       'Edificios, data centers, salas críticas. Climatización de precisión y eficiencia energética medida por zona.',
     items: [],
+    icon: Building2,
   },
 ];
 
@@ -55,7 +60,9 @@ export function Sectors() {
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <div className={styles.iconPh} aria-hidden="true" />
+            <div className={styles.iconWrap} aria-hidden="true">
+              <sector.icon size={24} strokeWidth={1.5} />
+            </div>
             <h3 className={styles.cardTitle}>{sector.titulo}</h3>
             <p className={styles.cardDesc}>{sector.descripcion}</p>
             <span className={styles.cardLink}>Conocer &#8594;</span>
