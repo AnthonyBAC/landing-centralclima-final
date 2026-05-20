@@ -1,6 +1,10 @@
 import Link from 'next/link';
-import type { Cliente } from '@/types';
 import styles from './Clients.module.css';
+
+interface Cliente {
+  nombre: string;
+  slug?: string;
+}
 
 const clientes: Cliente[] = [
   { nombre: 'CCU' },

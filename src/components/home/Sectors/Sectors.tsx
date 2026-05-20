@@ -4,8 +4,16 @@ import type { ElementType } from 'react';
 import Link from 'next/link';
 import { m } from 'framer-motion';
 import { Factory, Store, Building2 } from 'lucide-react';
-import type { Sector } from '@/types';
 import styles from './Sectors.module.css';
+
+interface Sector {
+  id: string;
+  eyebrow: string;
+  titulo: string;
+  descripcion: string;
+  items: string[];
+  icon: ElementType;
+}
 
 const MotionLink = m(Link);
 

@@ -1,18 +1,23 @@
 import type { QuoteInput } from '@/schemas/quoteSchema';
-import type { ApiResponse } from '@/types';
 
-export async function submitQuote(data: QuoteInput): Promise<ApiResponse> {
+interface QuoteResponse {
+  success: boolean;
+  message: string;
+  data?: { numero: string };
+}
+
+export async function submitQuote(data: QuoteInput): Promise<string> {
   const res = await fetch('/api/cotizar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
   });
 
-  const json: ApiResponse = await res.json();
+  const json: QuoteResponse = await res.json();
 
   if (!res.ok) {
     throw new Error(json.message ?? 'Error al enviar la cotización');
   }
 
-  return json;
+  return json.data?.numero ?? '';
 }

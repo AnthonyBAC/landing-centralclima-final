@@ -8,10 +8,10 @@ interface BackButtonProps {
 }
 
 export function BackButton({ label = 'Volver' }: BackButtonProps) {
-  const router = useRouter();
+  const { back } = useRouter();
 
   return (
-    <button onClick={() => router.back()} className={styles.backBtn}>
+    <button onClick={() => back()} className={styles.backBtn}>
       <span className={styles.arrow}>←</span>
       {label}
     </button>

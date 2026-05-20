@@ -3,7 +3,7 @@ import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { Footer } from '@/components/layout/Footer/Footer';
 import { BackButton } from '@/components/ui/BackButton/BackButton';
 import { QuoteForm } from './QuoteForm';
-import styles from './cotizar.module.css';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Solicitar cotización — CentralClima',

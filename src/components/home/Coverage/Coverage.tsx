@@ -1,9 +1,12 @@
 'use client';
 
 import { m } from 'framer-motion';
-import type { CoverageRegion } from '@/types';
 import { CoverageMap } from './CoverageMap';
 import styles from './Coverage.module.css';
+
+interface CoverageRegion {
+  nombre: string;
+}
 
 const comunas: CoverageRegion[] = [
   { nombre: 'Las Condes' },

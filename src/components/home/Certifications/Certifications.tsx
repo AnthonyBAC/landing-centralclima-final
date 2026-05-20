@@ -1,5 +1,8 @@
-import type { Certificacion } from '@/types';
 import styles from './Certifications.module.css';
+
+interface Certificacion {
+  nombre: string;
+}
 
 const certificaciones: Certificacion[] = [
   { nombre: 'ISO 9001' },
