@@ -8,16 +8,19 @@ datasource db {
 }
 
 model Quote {
-  id              String   @id @default(cuid())
-  nombre          String
-  empresa         String
-  email           String
-  telefono        String
-  tipoServicio    String
-  descripcion     String
-  cantidadEquipos Int?
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  numeroCotizacion   String   @unique
+  nombre             String
+  empresa            String?
+  email              String?
+  telefono           String
+  tipoServicio       String
+  tipoEquipo         String?
+  cantidadEquipos    Int?
+  descripcion        String?
+  estado             String   @default("recibida")
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
   @@map("quotes")
 }

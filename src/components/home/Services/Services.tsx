@@ -2,8 +2,13 @@
 
 import Link from 'next/link';
 import { m } from 'framer-motion';
-import type { Servicio } from '@/types';
 import styles from './Services.module.css';
+
+interface Servicio {
+  num: string;
+  titulo: string;
+  descripcion: string;
+}
 
 const servicios: Servicio[] = [
   {

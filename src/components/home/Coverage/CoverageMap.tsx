@@ -1,7 +1,7 @@
 'use client';
 
 import { m, type Variants } from 'framer-motion';
-import { COMUNAS_RM } from '@/data/comunas-rm';
+import { COMUNAS_RM } from './comunas-rm';
 import styles from './Coverage.module.css';
 
 // Nombres exactos según el GeoJSON fuente (capitalización especial en tildes)
@@ -18,7 +18,7 @@ const HIGHLIGHTED = new Set([
 const cx = COMUNAS_RM.reduce((s, c) => s + c.cx, 0) / COMUNAS_RM.length;
 const cy = COMUNAS_RM.reduce((s, c) => s + c.cy, 0) / COMUNAS_RM.length;
 
-const sorted = [...COMUNAS_RM].sort((a, b) => {
+const sorted = COMUNAS_RM.toSorted((a, b) => {
   const da = (a.cx - cx) ** 2 + (a.cy - cy) ** 2;
   const db = (b.cx - cx) ** 2 + (b.cy - cy) ** 2;
   return da - db;
