@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -L \"https://raw.githubusercontent.com/robsalasco/precenso_2016_geojson_chile/master/Geojson/REGION_13.geojson\" -o \"C:/projects/landing-page-form-centralclima/rm_temp.json\" --max-time 30)",
+      "Bash(curl -s -L \"https://raw.githubusercontent.com/robsalasco/precenso_2016_geojson_chile/master/Geojson/REGION_13.geojson\" -w \"\\\\nHTTP_STATUS:%{http_code}\" --max-time 30)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -s -L \"https://raw.githubusercontent.com/robsalasco/precenso_2016_geojson_chile/master/Comunas/R13.geojson\" -o \"C:/projects/landing-page-form-centralclima/rm_comunas.json\" --max-time 60)",
+      "Bash(node generate_comunas.js)",
+      "Bash(node -e ' *)",
+      "Bash(Get-Content *)",
+      "Bash(node *)",
+      "Bash(rm /c/projects/landing-page-form-centralclima/comunas_rm_data.ts)",
+      "Bash(rm /c/projects/landing-page-form-centralclima/scripts/simplify-comunas.mjs)",
+      "Bash(awk '{print NR\": \"$0}')",
+      "Bash(pnpm build *)",
+      "Bash(pnpm approve-builds *)",
+      "Bash(npx next *)",
+      "Bash(sort -k5 -rh)",
+      "Bash(awk '{sum += $5} END {print \"Total JS chunks: \" sum/1024 \" KB\"}')",
+      "Bash(awk '{sum += $5} END {print \"Total CSS: \" sum/1024 \" KB\"}')",
+      "Bash(xargs ls -lh)"
+    ]
+  }
+}
