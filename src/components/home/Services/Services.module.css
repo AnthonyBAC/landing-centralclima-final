@@ -81,11 +81,17 @@
   justify-content: space-between;
   cursor: pointer;
   background: var(--paper);
+  text-decoration: none;
+  color: inherit;
   transition: background var(--transition-base);
 }
 
 .card:hover {
   background: var(--bg);
+}
+
+.card:hover .cardLink {
+  color: var(--ink);
 }
 
 .card:nth-child(2n) {
@@ -108,11 +114,14 @@
   margin-top: 12px;
 }
 
-.arrow {
+.cardLink {
   font-family: var(--font-mono);
-  font-size: 14px;
-  align-self: flex-end;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--muted);
+  align-self: flex-start;
+  transition: color var(--transition-base);
 }
 
 @media (max-width: 900px) {

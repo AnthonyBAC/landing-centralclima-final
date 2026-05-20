@@ -7,7 +7,9 @@ import { Factory, Store, Building2 } from 'lucide-react';
 import type { Sector } from '@/types';
 import styles from './Sectors.module.css';
 
-const sectores: (Sector & { icon: ElementType })[] = [
+const MotionLink = m(Link);
+
+const sectores: Sector[] = [
   {
     id: 'industrial',
     eyebrow: '01 · Industrial',
@@ -49,8 +51,9 @@ export function Sectors() {
 
       <div className={styles.grid}>
         {sectores.map((sector, i) => (
-          <m.div
+          <MotionLink
             key={sector.id}
+            href="/sectores"
             className={styles.card}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -62,10 +65,8 @@ export function Sectors() {
             </div>
             <h3 className={styles.cardTitle}>{sector.titulo}</h3>
             <p className={styles.cardDesc}>{sector.descripcion}</p>
-            <Link href="/sectores" className={styles.cardLink}>
-              Conocer &#8594;
-            </Link>
-          </m.div>
+            <span className={styles.cardLink}>Conocer &#8594;</span>
+          </MotionLink>
         ))}
       </div>
     </section>
