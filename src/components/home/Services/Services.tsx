@@ -58,13 +58,13 @@ export function Services() {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           {servicios.map((servicio) => (
-            <div key={servicio.num} className={styles.card}>
+            <Link key={servicio.num} href="/servicios" className={styles.card}>
               <div>
                 <div className={styles.cardNum}>{servicio.num}</div>
                 <h4 className={styles.cardTitle}>{servicio.titulo}</h4>
               </div>
-              <div className={styles.arrow}>&#8594;</div>
-            </div>
+              <span className={styles.cardLink}>Conocer &#8594;</span>
+            </Link>
           ))}
         </m.div>
       </div>

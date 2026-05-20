@@ -39,6 +39,8 @@
   gap: 18px;
   background: var(--paper);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: background var(--transition-base);
 }
 
