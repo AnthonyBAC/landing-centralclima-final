@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Montserrat, Roboto, Roboto_Mono } from 'next/font/google';
 import './globals.css';
 import { MotionProvider } from '@/components/providers/MotionProvider';
+import { AntdProvider } from '@/components/providers/AntdProvider';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -42,11 +43,13 @@ export default function RootLayout({
       className={`${montserrat.variable} ${roboto.variable} ${robotoMono.variable}`}
     >
       <body>
-        <MotionProvider>
-          <div className="page-wrapper">
-            {children}
-          </div>
-        </MotionProvider>
+        <AntdProvider>
+          <MotionProvider>
+            <div className="page-wrapper">
+              {children}
+            </div>
+          </MotionProvider>
+        </AntdProvider>
       </body>
     </html>
   );
