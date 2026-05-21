@@ -24,7 +24,7 @@ interface UseQuoteFormReturn {
   isSuccess: boolean;
   numeroCotizacion: string;
   handleChange: (field: keyof QuoteInput, value: string | number | undefined) => void;
-  handleSubmit: (e: React.FormEvent) => void;
+  handleSubmit: () => void;
   reset: () => void;
 }
 
@@ -59,8 +59,7 @@ export function useQuoteForm(): UseQuoteFormReturn {
     if (errors[field]) setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setErrors({});
 
     if (!values.tipoServicio) {
