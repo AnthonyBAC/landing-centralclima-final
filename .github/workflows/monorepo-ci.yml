@@ -1,0 +1,102 @@
+name: Monorepo CI
+
+on:
+  pull_request:
+    paths:
+      - centralclima-front/**
+      - centralclima-back/**
+      - .github/workflows/monorepo-ci.yml
+  push:
+    branches:
+      - main
+    paths:
+      - centralclima-front/**
+      - centralclima-back/**
+      - .github/workflows/monorepo-ci.yml
+  workflow_dispatch:
+
+concurrency:
+  group: monorepo-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      front: ${{ steps.filter.outputs.front }}
+      back: ${{ steps.filter.outputs.back }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detect changed projects
+        id: filter
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            front:
+              - 'centralclima-front/**'
+              - '.github/workflows/monorepo-ci.yml'
+            back:
+              - 'centralclima-back/**'
+              - '.github/workflows/monorepo-ci.yml'
+
+  front:
+    name: Front CI
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.front == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: centralclima-front
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: centralclima-front/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Cloudflare bundle
+        run: pnpm cf:build
+
+  back:
+    name: Back CI
+    needs: changes
+    if: github.event_name == 'workflow_dispatch' || needs.changes.outputs.back == 'true'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: centralclima-back
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.1.3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: centralclima-back/pnpm-lock.yaml
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Vercel app
+        run: pnpm build

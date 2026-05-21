@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CentralClima Full Stack
 
-## Getting Started
+Este repo contiene dos proyectos separados dentro del mismo repositorio:
 
-First, run the development server:
+- `centralclima-front`: landing y frontend, preparado para desplegar en Cloudflare con OpenNext.
+- `centralclima-back`: backend en Next.js, preparado para desplegar en Vercel.
+
+## Desarrollo local
+
+Frontend:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+cd centralclima-front
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Backend:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+cd centralclima-back
+pnpm install
+pnpm dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## CI/CD
 
-## Learn More
+GitHub Actions se usa solo para CI y valida cada proyecto por separado cuando cambian sus archivos.
 
-To learn more about Next.js, take a look at the following resources:
+- `centralclima-front`: ejecuta `pnpm cf:build`
+- `centralclima-back`: ejecuta `pnpm build`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Para CD no hace falta duplicar despliegues en GitHub Actions si cada plataforma ya está conectada al repo. La forma recomendada es:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Vercel apuntando a `centralclima-back` como `Root Directory`
+- Cloudflare apuntando a `centralclima-front` como `Root Directory`
 
-## Deploy on Vercel
+Con esa configuracion, un push a `main` dispara:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- validacion en GitHub Actions
+- despliegue del backend en Vercel
+- despliegue del frontend en Cloudflare
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Ajustes recomendados de plataforma
+
+Vercel:
+
+- `Root Directory`: `centralclima-back`
+- `Install Command`: `pnpm install --frozen-lockfile`
+- `Build Command`: `pnpm build`
+
+Cloudflare:
+
+- `Root Directory`: `centralclima-front`
+- `Install Command`: `pnpm install --frozen-lockfile`
+- `Build Command`: `pnpm cf:build`
+
+Si Cloudflare pide comando de despliegue manual, usa `pnpm deploy`.

@@ -1,0 +1,83 @@
+'use client';
+
+import type { ElementType } from 'react';
+import Link from 'next/link';
+import { m } from 'framer-motion';
+import { ToolOutlined, ShopOutlined, BankOutlined } from '@ant-design/icons';
+import styles from './Sectors.module.css';
+
+interface Sector {
+  id: string;
+  eyebrow: string;
+  titulo: string;
+  descripcion: string;
+  items: string[];
+  icon: ElementType;
+}
+
+const MotionLink = m(Link);
+
+const sectores: Sector[] = [
+  {
+    id: 'industrial',
+    eyebrow: '01 · Industrial',
+    titulo: 'Industrial',
+    descripcion:
+      'Plantas productivas, bodegas, frigoríficos. Diseño térmico, mantención predictiva y respuesta de emergencia 24/7.',
+    items: [],
+    icon: ToolOutlined,
+  },
+  {
+    id: 'retail',
+    eyebrow: '02 · Retail y Comercial',
+    titulo: 'Retail y Comercial',
+    descripcion:
+      'Locales, sucursales, malls. Planes multi-sitio con SLA y reporte centralizado para cadenas de cualquier tamaño.',
+    items: [],
+    icon: ShopOutlined,
+  },
+  {
+    id: 'corporativo',
+    eyebrow: '03 · Corporativo y Oficinas',
+    titulo: 'Corporativo y Oficinas',
+    descripcion:
+      'Edificios, data centers, salas críticas. Climatización de precisión y eficiencia energética medida por zona.',
+    items: [],
+    icon: BankOutlined,
+  },
+];
+
+export function Sectors() {
+  return (
+    <section className={styles.section}>
+      <div className={styles.header}>
+        <span className={styles.eyebrow}>Sectores</span>
+        <h2 className={styles.title}>
+          Soluciones según el tamaño y exigencia de tu operación.
+        </h2>
+      </div>
+
+      <div className={styles.grid}>
+        {sectores.map((sector, i) => (
+          <MotionLink
+            key={sector.id}
+            href="/sectores"
+            className={styles.card}
+
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-60px' }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+          >
+            <div className={styles.iconWrap} aria-hidden="true">
+              <sector.icon style={{ fontSize: 24 }} />
+            </div>
+            <h3 className={styles.cardTitle}>{sector.titulo}</h3>
+            <p className={styles.cardDesc}>{sector.descripcion}</p>
+            <span className={styles.cardLink}>Conocer &#8594;</span>
+          </MotionLink>
+        ))}
+      </div>
+    </section>
+  );
+}

@@ -1,0 +1,32 @@
+{
+  "name": "centralclima-front",
+  "version": "0.1.0",
+  "private": true,
+ "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "cf:build": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare upload",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^6.2.3",
+    "antd": "^6.4.3",
+    "framer-motion": "^12.38.0",
+    "next": "16.2.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@opennextjs/cloudflare": "^1.19.11",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "pnpm": "^11.1.3",
+    "react-doctor": "^0.1.6",
+    "typescript": "^5",
+    "wrangler": "^4.93.0"
+  }
+}
