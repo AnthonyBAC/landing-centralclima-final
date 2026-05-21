@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { Footer } from '@/components/layout/Footer/Footer';
-import { BackButton } from '@/components/ui/BackButton/BackButton';
+import { PagePlaceholder } from '@/components/ui/AnimatedPageSection/AnimatedPageSection';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -14,10 +14,12 @@ export default function ContactoPage() {
       <Navbar />
       <main className={styles.main}>
         <div className={styles.inner}>
-          <BackButton />
-          <span className={styles.eyebrow}>Contacto</span>
-          <h1 className={styles.title}>Contacto</h1>
-          <p className={styles.lede}>Página en construcción.</p>
+          <PagePlaceholder
+            eyebrow="Contacto"
+            title="Contacto"
+            lede="Página en construcción."
+            css={styles}
+          />
         </div>
       </main>
       <Footer />
