@@ -38,6 +38,8 @@ yarn-error.log*
 
 # cloudflare / open-next
 .open-next
+.wrangler
+.wrangler/
 
 # local tooling
 .claude
@@ -45,4 +47,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
