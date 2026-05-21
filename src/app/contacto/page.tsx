@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Navbar } from '@/components/layout/Navbar/Navbar';
 import { Footer } from '@/components/layout/Footer/Footer';
 import { BackButton } from '@/components/ui/BackButton/BackButton';
-import styles from '@/styles/page.module.css';
+import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Contacto — CentralClima',

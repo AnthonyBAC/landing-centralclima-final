@@ -1,16 +1,19 @@
-import Link from 'next/link';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import styles from './BackButton.module.css';
 
 interface BackButtonProps {
-  href?: string;
   label?: string;
 }
 
-export function BackButton({ href = '/', label = 'Volver' }: BackButtonProps) {
+export function BackButton({ label = 'Volver' }: BackButtonProps) {
+  const { back } = useRouter();
+
   return (
-    <Link href={href} className={styles.backBtn}>
+    <button onClick={() => back()} className={styles.backBtn}>
       <span className={styles.arrow}>←</span>
       {label}
-    </Link>
+    </button>
   );
 }

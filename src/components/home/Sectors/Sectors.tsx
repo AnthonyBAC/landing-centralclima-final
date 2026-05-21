@@ -1,9 +1,21 @@
 'use client';
 
+import type { ElementType } from 'react';
 import Link from 'next/link';
 import { m } from 'framer-motion';
-import type { Sector } from '@/types';
+import { Factory, Store, Building2 } from 'lucide-react';
 import styles from './Sectors.module.css';
+
+interface Sector {
+  id: string;
+  eyebrow: string;
+  titulo: string;
+  descripcion: string;
+  items: string[];
+  icon: ElementType;
+}
+
+const MotionLink = m(Link);
 
 const sectores: Sector[] = [
   {
@@ -13,6 +25,7 @@ const sectores: Sector[] = [
     descripcion:
       'Plantas productivas, bodegas, frigoríficos. Diseño térmico, mantención predictiva y respuesta de emergencia 24/7.',
     items: [],
+    icon: Factory,
   },
   {
     id: 'retail',
@@ -21,6 +34,7 @@ const sectores: Sector[] = [
     descripcion:
       'Locales, sucursales, malls. Planes multi-sitio con SLA y reporte centralizado para cadenas de cualquier tamaño.',
     items: [],
+    icon: Store,
   },
   {
     id: 'corporativo',
@@ -29,6 +43,7 @@ const sectores: Sector[] = [
     descripcion:
       'Edificios, data centers, salas críticas. Climatización de precisión y eficiencia energética medida por zona.',
     items: [],
+    icon: Building2,
   },
 ];
 
@@ -44,21 +59,23 @@ export function Sectors() {
 
       <div className={styles.grid}>
         {sectores.map((sector, i) => (
-          <m.div
+          <MotionLink
             key={sector.id}
+            href="/sectores"
             className={styles.card}
+
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-60px' }}
             transition={{ duration: 0.5, delay: i * 0.1 }}
           >
-            <div className={styles.iconPh} aria-hidden="true" />
+            <div className={styles.iconWrap} aria-hidden="true">
+              <sector.icon size={24} strokeWidth={1.5} />
+            </div>
             <h3 className={styles.cardTitle}>{sector.titulo}</h3>
             <p className={styles.cardDesc}>{sector.descripcion}</p>
-            <Link href="/sectores" className={styles.cardLink}>
-              Conocer &#8594;
-            </Link>
-          </m.div>
+            <span className={styles.cardLink}>Conocer &#8594;</span>
+          </MotionLink>
         ))}
       </div>
     </section>

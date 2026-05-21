@@ -1,8 +1,12 @@
 'use client';
 
 import { m } from 'framer-motion';
-import type { Stat } from '@/types';
 import styles from './Stats.module.css';
+
+interface Stat {
+  num: string;
+  label: string;
+}
 
 const stats: Stat[] = [
   { num: '14+', label: 'Años de experiencia' },

@@ -39,6 +39,8 @@
   gap: 18px;
   background: var(--paper);
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: background var(--transition-base);
 }
 
@@ -50,23 +52,15 @@
   border-right: none;
 }
 
-.iconPh {
+.iconWrap {
   width: 48px;
   height: 48px;
   border: 1px solid var(--line);
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-}
-
-.iconPh::before {
-  content: '';
-  position: absolute;
-  inset: 10px;
-  background: repeating-linear-gradient(
-    45deg,
-    var(--ink) 0 1px,
-    transparent 1px 5px
-  );
+  color: var(--ink);
 }
 
 .cardTitle {

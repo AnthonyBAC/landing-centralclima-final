@@ -70,6 +70,11 @@
   color: var(--ink);
 }
 
+.optional {
+  color: var(--muted);
+  font-weight: 400;
+}
+
 .input,
 .select,
 .textarea {
@@ -102,7 +107,7 @@
 }
 
 .textarea {
-  resize: vertical;
+  resize: none;
   min-height: 120px;
 }
 
@@ -113,7 +118,74 @@
   letter-spacing: 0.06em;
 }
 
+.fieldFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 16px;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-left: auto;
+}
+
+.counterLimit {
+  color: #c0392b;
+}
+
 .inputError {
+  border-color: #c0392b;
+}
+
+.phoneWrap {
+  display: flex;
+  align-items: stretch;
+}
+
+.phonePrefix {
+  display: flex;
+  align-items: center;
+  padding: 14px 10px 14px 16px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-right: none;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--muted);
+  user-select: none;
+  white-space: nowrap;
+  transition: border-color var(--transition-base);
+}
+
+.phoneInput {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line-soft);
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.4;
+  transition: border-color var(--transition-base);
+  appearance: none;
+}
+
+.phoneInput:focus {
+  outline: none;
+  border-color: var(--ink);
+}
+
+.phoneWrap:focus-within .phonePrefix {
+  border-color: var(--ink);
+}
+
+.phoneWrap[data-error="true"] .phonePrefix,
+.phoneWrap[data-error="true"] .phoneInput {
   border-color: #c0392b;
 }
 
@@ -172,6 +244,16 @@
   width: 40px;
   height: 40px;
   color: var(--cta-ink);
+}
+
+.successNumero {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  border: 1px solid var(--line-soft);
+  padding: 6px 14px;
+  width: fit-content;
 }
 
 .successTitle {

@@ -1,4 +1,28 @@
-@import '../styles/variables.css';
+:root {
+  /* ── Colores ───────────────────────────────────────── */
+  --bg: #F0F4F8;
+  --paper: #FFFFFF;
+  --ink: #003162;
+  --muted: #4A6A8A;
+  --line: #003162;
+  --line-soft: #C8D4E0;
+  --cta: #CD0000;
+  --cta-ink: #FFFFFF;
+
+  /* ── Fuentes (next/font inyecta --font-montserrat, --font-roboto, --font-roboto-mono en <html>) */
+  --font-heading: var(--font-montserrat, 'Montserrat', sans-serif);
+  --font-body: var(--font-roboto, 'Roboto', sans-serif);
+  --font-mono: var(--font-roboto-mono, 'Roboto Mono', monospace);
+
+  /* ── Layout ────────────────────────────────────────── */
+  --container-max: 1480px;
+  --container-pad: 72px;
+  --container-pad-tight: 104px;
+
+  /* ── Transiciones ──────────────────────────────────── */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.15s ease;
+}
 
 *,
 *::before,
@@ -20,7 +44,11 @@ body {
 }
 
 body {
-  background: var(--bg);
+  background-color: #e5e5f7;
+  background-image:
+    linear-gradient(rgba(68, 76, 247, 0.1) 0.7px, transparent 0.7px),
+    linear-gradient(to right, rgba(68, 76, 247, 0.1) 0.7px, #e5e5f7 0.7px);
+  background-size: 32px 32px;
   color: var(--ink);
   font-family: var(--font-body);
   font-weight: 400;
@@ -35,8 +63,6 @@ body {
   margin: 0 auto;
   background: var(--paper);
   min-height: 100vh;
-  border-left: 1px solid var(--line);
-  border-right: 1px solid var(--line);
 }
 
 h1,
