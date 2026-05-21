@@ -10,16 +10,6 @@
     "upload": "opennextjs-cloudflare upload",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@prisma/engines",
-      "prisma",
-      "@prisma/adapter-pg",
-      "esbuild",
-      "sharp",
-      "workerd"
-    ]
-  },
   "dependencies": {
     "@ant-design/icons": "^6.2.3",
     "@prisma/adapter-pg": "^7.8.0",
