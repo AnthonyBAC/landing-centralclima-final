@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
-import { PrismaClient } from '../../../generated/prisma/client';
-import { quoteSchema } from '../../../schemas/quoteSchema';
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+import { PrismaClient } from '@prisma/client';
+import { getDb } from '@/lib/db';
+import { quoteSchema } from '@/schemas/quoteSchema';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -18,10 +13,10 @@ const TIPO_LABEL: Record<string, string> = {
   auditoria: 'Auditoría y eficiencia energética',
 };
 
-async function generarNumeroCotizacion(): Promise<string> {
+async function generarNumeroCotizacion(prisma: PrismaClient): Promise<string> {
   const year = new Date().getFullYear();
-  const rows = await prisma.$queryRaw<[{ nextval: bigint }]>`SELECT nextval('quote_secuencial_seq')`;
-  return `CC-${year}-${Number(rows[0].nextval)}`;
+  const count = await prisma.quote.count();
+  return `CC-${year}-${count + 1}`;
 }
 
 export async function POST(req: NextRequest) {
@@ -46,7 +41,8 @@ export async function POST(req: NextRequest) {
   }
 
   const data = result.data;
-  const numero = await generarNumeroCotizacion();
+  const prisma = getDb();
+  const numero = await generarNumeroCotizacion(prisma);
   const tipoLabel = TIPO_LABEL[data.tipoServicio] ?? data.tipoServicio;
   const from = process.env.RESEND_FROM ?? 'CentralClima <onboarding@resend.dev>';
   const companyEmail = process.env.COMPANY_EMAIL ?? '';
