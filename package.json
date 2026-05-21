@@ -2,15 +2,13 @@
   "name": "landing-page-form-centralclima",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
+ "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "build:cloudflare": "prisma generate && opennextjs-cloudflare build",
-    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "start": "next start",
-    "postinstall": "prisma generate"
+    "cf:build": "opennextjs-cloudflare build",
+    "deploy": "opennextjs-cloudflare deploy",
+    "upload": "opennextjs-cloudflare upload",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
