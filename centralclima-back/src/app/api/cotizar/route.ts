@@ -4,10 +4,21 @@ import { PrismaClient } from '@prisma/client';
 import { getDb } from '@/lib/db';
 import { quoteSchema } from '@/schemas/quoteSchema';
 
-const CORS_HEADERS = {
-  'Access-Control-Allow-Origin': '*',
+const DEFAULT_ALLOWED_ORIGINS = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+];
+
+const ALLOWED_ORIGINS = new Set(
+  (process.env.ALLOWED_ORIGINS?.split(',') ?? DEFAULT_ALLOWED_ORIGINS)
+    .map((origin) => origin.trim())
+    .filter(Boolean)
+);
+
+const CORS_BASE_HEADERS = {
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
+  Vary: 'Origin',
 };
 
 const TIPO_LABEL: Record<string, string> = {
@@ -17,10 +28,25 @@ const TIPO_LABEL: Record<string, string> = {
   auditoria: 'Auditoría y eficiencia energética',
 };
 
-function json(body: unknown, status: number) {
+function getCorsHeaders(origin: string | null) {
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    return {
+      ...CORS_BASE_HEADERS,
+      'Access-Control-Allow-Origin': origin,
+    };
+  }
+
+  return CORS_BASE_HEADERS;
+}
+
+function isAllowedOrigin(origin: string | null) {
+  return origin === null || ALLOWED_ORIGINS.has(origin);
+}
+
+function json(body: unknown, status: number, origin: string | null) {
   return NextResponse.json(body, {
     status,
-    headers: CORS_HEADERS,
+    headers: getCorsHeaders(origin),
   });
 }
 
@@ -30,26 +56,38 @@ async function generarNumeroCotizacion(prisma: PrismaClient): Promise<string> {
   return `CC-${year}-${count + 1}`;
 }
 
-export function OPTIONS() {
+export function OPTIONS(req: NextRequest) {
+  const origin = req.headers.get('origin');
+
+  if (!isAllowedOrigin(origin)) {
+    return json({ success: false, message: 'Origin no permitido' }, 403, origin);
+  }
+
   return new NextResponse(null, {
     status: 204,
-    headers: CORS_HEADERS,
+    headers: getCorsHeaders(origin),
   });
 }
 
 export async function POST(req: NextRequest) {
+  const origin = req.headers.get('origin');
+
+  if (!isAllowedOrigin(origin)) {
+    return json({ success: false, message: 'Origin no permitido' }, 403, origin);
+  }
+
   let body: unknown;
 
   try {
     body = await req.json();
   } catch {
-    return json({ success: false, message: 'Cuerpo de la solicitud inválido' }, 400);
+    return json({ success: false, message: 'Cuerpo de la solicitud inválido' }, 400, origin);
   }
 
   const result = quoteSchema.safeParse(body);
 
   if (!result.success) {
-    return json({ success: false, message: 'Datos inválidos', errors: result.error.issues }, 422);
+    return json({ success: false, message: 'Datos inválidos', errors: result.error.issues }, 422, origin);
   }
 
   const data = result.data;
@@ -76,7 +114,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error('[cotizar] error guardando en BD:', err);
-    return json({ success: false, message: 'Error al guardar la cotización. Intenta nuevamente.' }, 500);
+    return json({ success: false, message: 'Error al guardar la cotización. Intenta nuevamente.' }, 500, origin);
   }
 
   const emailTargets: Promise<unknown>[] = [
@@ -108,7 +146,7 @@ export async function POST(req: NextRequest) {
     }
   });
 
-  return json({ success: true, message: 'Cotización recibida correctamente', data: { numero } }, 201);
+  return json({ success: true, message: 'Cotización recibida correctamente', data: { numero } }, 201, origin);
 }
 
 // ── Templates ────────────────────────────────────────────────────────────────
