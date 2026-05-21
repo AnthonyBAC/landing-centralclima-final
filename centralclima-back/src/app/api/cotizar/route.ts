@@ -4,6 +4,12 @@ import { PrismaClient } from '@prisma/client';
 import { getDb } from '@/lib/db';
 import { quoteSchema } from '@/schemas/quoteSchema';
 
+const CORS_HEADERS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
 const TIPO_LABEL: Record<string, string> = {
   instalacion: 'Instalación de aire acondicionado',
   'mantencion-preventiva': 'Mantención preventiva programada',
@@ -11,10 +17,24 @@ const TIPO_LABEL: Record<string, string> = {
   auditoria: 'Auditoría y eficiencia energética',
 };
 
+function json(body: unknown, status: number) {
+  return NextResponse.json(body, {
+    status,
+    headers: CORS_HEADERS,
+  });
+}
+
 async function generarNumeroCotizacion(prisma: PrismaClient): Promise<string> {
   const year = new Date().getFullYear();
   const count = await prisma.quote.count();
   return `CC-${year}-${count + 1}`;
+}
+
+export function OPTIONS() {
+  return new NextResponse(null, {
+    status: 204,
+    headers: CORS_HEADERS,
+  });
 }
 
 export async function POST(req: NextRequest) {
@@ -23,19 +43,13 @@ export async function POST(req: NextRequest) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json(
-      { success: false, message: 'Cuerpo de la solicitud inválido' },
-      { status: 400 }
-    );
+    return json({ success: false, message: 'Cuerpo de la solicitud inválido' }, 400);
   }
 
   const result = quoteSchema.safeParse(body);
 
   if (!result.success) {
-    return NextResponse.json(
-      { success: false, message: 'Datos inválidos', errors: result.error.issues },
-      { status: 422 }
-    );
+    return json({ success: false, message: 'Datos inválidos', errors: result.error.issues }, 422);
   }
 
   const data = result.data;
@@ -62,10 +76,7 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error('[cotizar] error guardando en BD:', err);
-    return NextResponse.json(
-      { success: false, message: 'Error al guardar la cotización. Intenta nuevamente.' },
-      { status: 500 }
-    );
+    return json({ success: false, message: 'Error al guardar la cotización. Intenta nuevamente.' }, 500);
   }
 
   const emailTargets: Promise<unknown>[] = [
@@ -97,10 +108,7 @@ export async function POST(req: NextRequest) {
     }
   });
 
-  return NextResponse.json(
-    { success: true, message: 'Cotización recibida correctamente', data: { numero } },
-    { status: 201 }
-  );
+  return json({ success: true, message: 'Cotización recibida correctamente', data: { numero } }, 201);
 }
 
 // ── Templates ────────────────────────────────────────────────────────────────
